@@ -8,6 +8,8 @@
       password: test
            
 
+Use Postman, insomnia or other similar software to test 
+
 -- api routes 
 
 No authentication required

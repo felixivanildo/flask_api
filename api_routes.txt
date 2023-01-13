@@ -1,0 +1,196 @@
+-- database users and passwords
+  admin: 
+      username: felix@mail
+      password: senha
+      
+  non_admin:
+      username: test@
+      password: test
+           
+
+-- api routes 
+
+No authentication required
+
+/user 
+
+  Methods= Get
+  Body Params: None
+  What does it do: return all the users on the database
+  
+------------------------------------------------------------------
+
+
+/login 
+
+  Methods= none
+  To use it, use to basic auth on insomnia or postman and on it, insert you login and password
+  Body Params: None
+  note: if admin copy the token to use on the admin only routes
+  What does it do: Return a user token based on if it is admin or not
+  
+-------------------------------------------------------------------
+
+
+/ressources
+
+
+  Methods= GET  
+  Body Params: None
+  What does it do: Return all ressources inserted on the database
+  
+-------------------------------------------------------------------
+
+
+/ressources
+
+
+  Methods= GET  
+  Body Params (a JSON with):
+  { 
+    "id": <id that you want>
+  }
+  notes: id type is integer  
+  What does it do: Return the ressource on the database that contains this id
+  
+  -------------------------------------------------------------------
+
+
+/ressources/search
+
+
+  Methods= GET  
+  Body Params (a JSON with):
+  { 
+    "id": <id that you want>
+  }
+  notes: id type is integer  
+  What does it do: Return the ressource on the database that contains this id
+  
+  -------------------------------------------------------------------
+
+
+/ressources/<id>
+
+
+  Methods= PUT  
+  Body Params :none
+  notes: the id that you put on this route will have the  'alocated_at' column fullfiled with the current day date, and the columnto_be_retorned with today + 30 days
+  What does it do: Set the required ressource to alocated
+  
+  -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+Authenticated admin role required routes
+
+
+/users/<id>
+
+
+  Methods= GET  
+  Body Params :none
+  headers params: header: acess-token  value:<your token>
+  notes: use the token returned by '/login' route on the headers
+  What does it do: Return user by id
+  
+-------------------------------------------------------------------
+  
+  /users
+
+
+  Methods= PUT  
+  Body Params  (Json with):
+  {
+    "id": <id>,
+    "email": "<email>",
+    "role": <role>,
+    "password": "<pass>"
+  }
+  
+  headers params:
+            header: acess-token  value:<your token>
+            header: Content-Type value:application/json
+            
+  notes: id is of type integer, email string, role boolean, password string.
+  What does it do: update the user email, role and password based on the id
+  
+  
+-------------------------------------------------------------------
+
+/users
+
+  Methods= DELETE  
+  Body Params  (Json with):
+  {
+    "id": <id>    
+  }
+  
+  headers params:
+            header: acess-token  value:<your token>
+            header: Content-Type value:application/json
+            
+  notes: id is of type integer
+  What does it do: delete user that contains this id from database
+  
+  
+  -------------------------------------------------------------------
+  
+  /ressources
+
+
+  Methods= DELETE  
+  Body Params  (Json with):
+  {
+    "id": <id>
+  }
+  
+  headers params:
+            header: acess-token  value:<your token>
+            header: Content-Type value:application/json
+            
+  notes: id is of type integer
+  What does it do: DELETE the ressource with this id from the database
+  
+  -------------------------------------------------------------------
+  
+  /ressources
+
+
+  Methods= PUT
+  Body Params  (Json with):
+  {
+    "id": <id>,
+    "produto": "<produto>",
+    "quantidade": <quantidade>,
+    "descricao": "<descricao>"
+  }
+  
+  headers params:
+            header: acess-token  value:<your token>
+            header: Content-Type value:application/json
+            
+  notes: id is of type integer, produto string, descricao string, quantidade numeric.
+  What does it do: update the ressource produto, descricao and quantidade based on the id
+  
+  -------------------------------------------------------------------
+  
+  /ressources
+
+
+  Methods= POST
+  Body Params  (Json with):
+  {
+    "produto": "<produto>",
+    "quantidade": <quantidade>,
+    "descricao": "<descricao>"
+  }
+  
+  headers params:
+            header: acess-token  value:<your token>
+            header: Content-Type value:application/json
+            
+  notes: produto is of type string, descricao string, quantidade numeric.
+  What does it do: create a new ressource with the produto, descricao and quantidade given
+

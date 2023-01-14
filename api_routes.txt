@@ -86,6 +86,7 @@ No authentication required
 
 
 Authenticated admin role required routes
+Get your token using the /login route
 
 
 /users/<id>
